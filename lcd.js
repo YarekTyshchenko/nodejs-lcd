@@ -1,7 +1,7 @@
 var rpc = require('jsonrpc2');
 var arduino = require('duino');
 var board = new arduino.Board({
-    //debug: true
+    device: 'ACM'
 });
 
 var lcd = new arduino.LCD({
@@ -37,10 +37,8 @@ lcd.home();
 var server = new rpc.Server();
 
 server.expose('print', function(args, opt, callback) {
-    console.log(args);
-    console.log(opt);
     printLcd(args[0]);
     callback(null, true);
 });
 
-server.listen(18000, '0.0.0.0');
+server.listen(8000, '0.0.0.0');
