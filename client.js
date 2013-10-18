@@ -1,10 +1,17 @@
-var rpc = require('jsonrpc2');
-var client = new rpc.Client(8000, 'lcd.yarekt.co.uk');
+var rpc = require('jayson');
+
+var client = rpc.client.http({
+  port: 8000,
+  hostname: 'lcd.yarekt.co.uk'
+});
+
+
 var send = function(message) {
 message += '';
-client.call('print', [message], function(err, result) {
-    console.log(result);
-});
+	client.request('print', [message], function(err, error, response) {
+	  if(err) throw err;
+	  console.log(response); // 2!
+	});
 }
 
 var readline = require('readline');
